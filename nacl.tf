@@ -2,8 +2,7 @@ resource "aws_network_acl" "manage" {
   vpc_id = "${aws_vpc.devel-tools.id}"
 
   subnet_ids = [
-    "${aws_subnet.utils-01.id}",
-    "${aws_subnet.utils-02.id}",
+    "${module.utils.util_subnet_id}",
   ]
 
   ingress {

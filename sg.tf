@@ -59,4 +59,3 @@ resource "aws_security_group" "universal_egress" {
     department = "${var.department}"
   }
 }
-
