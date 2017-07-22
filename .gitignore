@@ -3,3 +3,5 @@ secrets.tf
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
+keys/deployer
+keys/deployer.pub
