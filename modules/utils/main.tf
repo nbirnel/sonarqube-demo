@@ -8,7 +8,7 @@ resource "aws_subnet" "utils" {
   count                   = "${var.count}"
   vpc_id                  = "${var.vpc_id}"
   availability_zone       = "${var.region}${var.availability_zones["${count.index}"]}"
-  cidr_block              = "${cidrsubnet("${var.vpc_cidr}", 8, "${count.index}")}"
+  cidr_block              = "${cidrsubnet("${var.vpc_cidr}", 8, "${count.index * 128 }")}"
   map_public_ip_on_launch = false
 
   tags {
@@ -16,3 +16,4 @@ resource "aws_subnet" "utils" {
     department = "${var.department}"
   }
 }
+

@@ -2,7 +2,7 @@ resource "aws_network_acl" "manage" {
   vpc_id = "${aws_vpc.devel-tools.id}"
 
   subnet_ids = [
-    "${module.utils.util_subnet_id}",
+    "${module.utils.subnet_ids}",
   ]
 
   ingress {
@@ -12,7 +12,23 @@ resource "aws_network_acl" "manage" {
     action     = "allow"
     protocol   = "-1"
     cidr_block = "${var.mgmt_cidrs[0]}"
+  }
+
+  ingress {
+    from_port  = 0
+    to_port    = 0
+    rule_no    = 110
+    action     = "allow"
+    protocol   = "-1"
     cidr_block = "${var.mgmt_cidrs[1]}"
+  }
+
+  ingress {
+    from_port  = 0
+    to_port    = 0
+    rule_no    = 120
+    action     = "allow"
+    protocol   = "-1"
     cidr_block = "${var.mgmt_cidrs[2]}"
   }
 
@@ -26,7 +42,7 @@ resource "aws_network_acl" "manage" {
   }
 
   tags {
-    Name = "allow_all"
+    Name = "manage"
     env  = "prod"
   }
 }
