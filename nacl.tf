@@ -42,7 +42,8 @@ resource "aws_network_acl" "manage" {
   }
 
   tags {
-    Name = "manage"
-    env  = "prod"
+    Name      = "manage"
+    env       = "prod"
+    terraform = "yes"
   }
 }

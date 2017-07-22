@@ -14,6 +14,6 @@ resource "aws_subnet" "utils" {
   tags {
     Name       = "${format("utils-%02d", count.index + 1)}"
     department = "${var.department}"
+    terraform  = "yes"
   }
 }
-

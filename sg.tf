@@ -16,6 +16,7 @@ resource "aws_security_group" "salt" {
   tags {
     Name       = "salt"
     department = "${var.department}"
+    terraform  = "yes"
   }
 }
 
@@ -39,6 +40,7 @@ resource "aws_security_group" "ssh_manage" {
   tags {
     Name       = "ssh_manage"
     department = "${var.department}"
+    terraform  = "yes"
   }
 }
 
@@ -57,5 +59,6 @@ resource "aws_security_group" "universal_egress" {
   tags {
     Name       = "universal_egress"
     department = "${var.department}"
+    terraform  = "yes"
   }
 }

@@ -5,5 +5,6 @@ resource "aws_vpc" "devel-tools" {
   tags {
     Name       = "devel-tools"
     department = "${var.department}"
+    terraform  = "yes"
   }
 }
