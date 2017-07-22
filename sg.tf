@@ -1,25 +1,3 @@
-resource "aws_security_group" "salt" {
-  name        = "salt"
-  description = "salt from our VPC"
-  vpc_id      = "${aws_vpc.devel-tools.id}"
-
-  ingress {
-    from_port = 4505
-    to_port   = 4506
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${aws_vpc.devel-tools.cidr_block}",
-    ]
-  }
-
-  tags {
-    Name       = "salt"
-    department = "${var.department}"
-    terraform  = "yes"
-  }
-}
-
 resource "aws_security_group" "ssh_manage" {
   name        = "ssh_manage"
   description = "ssh from management subnets"

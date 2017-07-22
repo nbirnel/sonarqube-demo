@@ -1,13 +1,13 @@
-module "utils_rta" {
+module "sonarqube_rta" {
   source = "modules/route_table_association"
 
   count       = "${var.count["utils"]}"
   route_table = "${aws_route_table.devel-tools.id}"
-  subnet_ids  = "${module.subnets.utils_subnet_ids}"
+  subnet_ids  = "${module.subnets.sonarqube_subnet_ids}"
 }
 
-module "salt" {
-  source = "modules/salt"
+module "sonarqube" {
+  source = "modules/sonarqube"
 
   count      = "${var.count["utils"]}"
   department = "${var.department}"
@@ -15,31 +15,33 @@ module "salt" {
   centos7_ami = "${var.centos7_ami["${var.region}"]}"
   ssh_key     = "${aws_key_pair.deployer.key_name}"
 
-  sg_salt             = "${aws_security_group.salt.id}"
+  sg_sonarqube             = "${aws_security_group.sonarqube.id}"
   sg_ssh_manage       = "${aws_security_group.ssh_manage.id}"
   sg_universal_egress = "${aws_security_group.universal_egress.id}"
 
-  subnet_ids   = "${module.subnets.utils_subnet_ids}"
-  subnet_cidrs = "${module.subnets.utils_subnet_cidrs}"
+  subnet_ids   = "${module.subnets.sonarqube_subnet_ids}"
+  subnet_cidrs = "${module.subnets.sonarqube_subnet_cidrs}"
 }
 
-resource "aws_security_group" "salt" {
-  name        = "salt"
+resource "aws_security_group" "sonarqube" {
+  name        = "sonarqube"
   description = "salt from our VPC"
   vpc_id      = "${aws_vpc.devel-tools.id}"
 
   ingress {
-    from_port = 4505
-    to_port   = 4506
+    from_port = 9000
+    to_port   = 9000
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${aws_vpc.devel-tools.cidr_block}",
+      "${var.mgmt_cidrs[0]}",
+      "${var.mgmt_cidrs[1]}",
+      "${var.mgmt_cidrs[2]}",
     ]
   }
 
   tags {
-    Name       = "salt"
+    Name       = "sonarqube"
     department = "${var.department}"
     terraform  = "yes"
   }

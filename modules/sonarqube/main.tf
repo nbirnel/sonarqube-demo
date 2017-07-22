@@ -1,13 +1,13 @@
-resource "aws_instance" "salt" {
+resource "aws_instance" "sonarqube" {
   count = "${var.count}"
 
   ami           = "${var.centos7_ami}"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name      = "${var.ssh_key}"
   subnet_id     = "${var.subnet_ids[count.index]}"
 
   vpc_security_group_ids = [
-    "${var.sg_salt}",
+    "${var.sg_sonarqube}",
     "${var.sg_ssh_manage}",
     "${var.sg_universal_egress}",
   ]
@@ -17,7 +17,7 @@ resource "aws_instance" "salt" {
   source_dest_check           = true
 
   tags {
-    Name       = "${format("salt-%02d", count.index + 1)}"
+    Name       = "${format("sonarqube-%02d", count.index + 1)}"
     department = "${var.department}"
     terraform  = "yes"
   }
