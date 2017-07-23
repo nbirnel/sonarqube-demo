@@ -6,5 +6,6 @@ base:
   'role:salt':
     - match.grain
     - packages.tmux
+    - packages.salt-master
 
 

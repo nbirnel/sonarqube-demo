@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "devel-tools" {
-  cidr_block                       = "${var.vpc_cidr}"
+  cidr_block = "${var.vpc_cidr}"
 
   tags {
     Name       = "devel-tools"

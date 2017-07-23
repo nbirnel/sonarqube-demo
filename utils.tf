@@ -21,6 +21,13 @@ module "salt" {
 
   subnet_ids   = "${module.subnets.utils_subnet_ids}"
   subnet_cidrs = "${module.subnets.utils_subnet_cidrs}"
+
+  user        = "centos"
+  private_key = "${file("keys/deployer")}"
+}
+
+output "salt-public-addresses" {
+  value = "${module.salt.salt_public_ips}"
 }
 
 resource "aws_security_group" "salt" {

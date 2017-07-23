@@ -24,14 +24,10 @@ mkdir /root/src
 cd /root/src
 git clone https://github.com/nbirnel/sonarqube-demo/
 cd sonarqube-demo
-ln -s ${PWD}/salt /srv/salt
+ln -s ${PWD}/salt/ /srv/salt
 
 systemctl enable salt-master
 systemctl restart salt-master
 
 systemctl enable salt-minion
 systemctl restart salt-minion
-
-sleep 120
-
-salt-call state.highstate | tee /root/highstate

@@ -15,7 +15,7 @@ module "sonarqube" {
   centos7_ami = "${var.centos7_ami["${var.region}"]}"
   ssh_key     = "${aws_key_pair.deployer.key_name}"
 
-  sg_sonarqube             = "${aws_security_group.sonarqube.id}"
+  sg_sonarqube        = "${aws_security_group.sonarqube.id}"
   sg_ssh_manage       = "${aws_security_group.ssh_manage.id}"
   sg_universal_egress = "${aws_security_group.universal_egress.id}"
 

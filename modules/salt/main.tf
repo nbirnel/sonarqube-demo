@@ -16,7 +16,30 @@ resource "aws_instance" "salt" {
   private_ip                  = "${cidrhost("${var.subnet_cidrs[count.index]}", 4)}"
   source_dest_check           = true
 
-  user_data = "${file("${path.module}/files/init")}"
+  connection {
+    user        = "${var.user}"
+    private_key = "${var.private_key}"
+  }
+
+  provisioner = "file" {
+    source "${file("${path.module}/files/init")}"
+    destination = "/tmp/init"
+  }
+
+  provisioner "file" {
+    source      = "keys/master"
+    destination = "/home/${var.user}/master.pem"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo hostnamectl set-hostname --static ${format("salt-%02d", count.index + 1)}",
+      "sudo /tmp/init",
+      "sleep 240",
+      "mv /home/${var.user}/master.pem /etc/salt/pki/master.pem",
+      "sudo salt-call state.highstate",
+    ]
+  }
 
   tags {
     Name       = "${format("salt-%02d", count.index + 1)}"
