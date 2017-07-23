@@ -16,6 +16,19 @@ resource "aws_instance" "sonarqube" {
   private_ip                  = "${cidrhost("${var.subnet_cidrs[count.index]}", 4)}"
   source_dest_check           = true
 
+  user_data = "${file("${path.module}/files/init")}"
+
+  connection {
+    user        = "${var.user}"
+    private_key = "${var.private_key}"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo hostnamectl set-hostname --static ${format("sonarqube-%02d", count.index + 1)}",
+    ]
+  }
+
   tags {
     Name       = "${format("sonarqube-%02d", count.index + 1)}"
     department = "${var.department}"

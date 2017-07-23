@@ -19,8 +19,22 @@ module "sonarqube" {
   sg_ssh_manage       = "${aws_security_group.ssh_manage.id}"
   sg_universal_egress = "${aws_security_group.universal_egress.id}"
 
+  salt1_address = "${module.salt.01_private_ip}"
+  salt2_address = "${module.salt.02_private_ip}"
+
   subnet_ids   = "${module.subnets.sonarqube_subnet_ids}"
   subnet_cidrs = "${module.subnets.sonarqube_subnet_cidrs}"
+
+  user        = "centos"
+  private_key = "${file("keys/deployer")}"
+}
+
+output "sonarqube-01-public-address" {
+  value = "${module.sonarqube.01_public_ip}"
+}
+
+output "sonarqube-02-public-address" {
+  value = "${module.sonarqube.public_ips[1]}"
 }
 
 resource "aws_security_group" "sonarqube" {

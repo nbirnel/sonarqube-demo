@@ -28,9 +28,9 @@ test master key removal
 instructions
 monitoring
 gitfs
-route53?
+route53? and the hardcoded IPs 
 discuss keys
 discuss nacl -> sg -> iptables
 discuss public IPs
 discuss public git repos
-
+discuss elastic IPs
