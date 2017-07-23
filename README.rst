@@ -8,7 +8,8 @@ You will need:
 
 To get started::
 
-    cp samples/* ./
+    cd terraform 
+    cp examples/* ./
     $EDITOR variables.tf
     $EDITOR secrets.tf
     make apply  # not yet implemented!
