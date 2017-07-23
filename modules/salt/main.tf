@@ -16,6 +16,8 @@ resource "aws_instance" "salt" {
   private_ip                  = "${cidrhost("${var.subnet_cidrs[count.index]}", 4)}"
   source_dest_check           = true
 
+  user_data = "${file("${path.module}/files/init")}"
+
   tags {
     Name       = "${format("salt-%02d", count.index + 1)}"
     department = "${var.department}"
