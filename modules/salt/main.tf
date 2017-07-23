@@ -16,14 +16,11 @@ resource "aws_instance" "salt" {
   private_ip                  = "${cidrhost("${var.subnet_cidrs[count.index]}", 4)}"
   source_dest_check           = true
 
+  user_data = "${file("${path.module}/files/init")}"
+
   connection {
     user        = "${var.user}"
     private_key = "${var.private_key}"
-  }
-
-  provisioner = "file" {
-    source "${file("${path.module}/files/init")}"
-    destination = "/tmp/init"
   }
 
   provisioner "file" {
@@ -31,13 +28,17 @@ resource "aws_instance" "salt" {
     destination = "/home/${var.user}/master.pem"
   }
 
+  provisioner "file" {
+    source      = "keys/master.pub"
+    destination = "/home/${var.user}/master.pub"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo hostnamectl set-hostname --static ${format("salt-%02d", count.index + 1)}",
-      "sudo /tmp/init",
-      "sleep 240",
-      "mv /home/${var.user}/master.pem /etc/salt/pki/master.pem",
-      "sudo salt-call state.highstate",
+      "sudo mkdir -p /etc/salt/pki/master/",
+      "sudo mv /home/${var.user}/master.pem /etc/salt/pki/master/master.pem",
+      "sudo mv /home/${var.user}/master.pub /etc/salt/pki/master/master.pub",
     ]
   }
 

@@ -1,11 +1,13 @@
 base:
   'role:sonarqube':
-    - match.grain
+    - match: grain
     - packages.tmux
+    - packages.vim
 
   'role:salt':
-    - match.grain
+    - match: grain
     - packages.tmux
     - packages.salt-master
+    - packages.vim
 
 

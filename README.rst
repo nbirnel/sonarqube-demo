@@ -16,3 +16,21 @@ To get started::
 
 https://wiki.centos.org/Cloud/AWS#head-224024c7b3b083bd574bec6861bcdfd3487a5418
 aws --region us-east-1 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce
+
+TODO
+====
+
+disk encryption?
+salt-minion bootstrap for sonarqube
+salt states sonarqube
+iptables?
+test master key removal
+instructions
+monitoring
+gitfs
+route53?
+discuss keys
+discuss nacl -> sg -> iptables
+discuss public IPs
+discuss public git repos
+
