@@ -3,6 +3,7 @@ base:
     - match: grain
     - packages.tmux
     - packages.vim
+    - packages.wget
     - packages.zip
 
   'role:salt':
