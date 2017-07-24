@@ -2,6 +2,7 @@ base:
   'role:sonarqube':
     - match: grain
     - packages.openjdk8
+    - packages.postgres
     - packages.tmux
     - packages.vim
     - packages.wget
