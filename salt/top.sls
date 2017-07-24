@@ -1,6 +1,7 @@
 base:
   'role:sonarqube':
     - match: grain
+    - packages.openjdk8
     - packages.tmux
     - packages.vim
     - packages.wget
