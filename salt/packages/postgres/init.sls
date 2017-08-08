@@ -15,3 +15,13 @@ postgres-service:
     - name: postgresql
     - require:
       - pkg: postgres-package
+
+postgres-data-dir:
+  postgres_initdb.present:
+    - name /var/lib/pgsql/data
+    - auth: password
+    - user: postgres
+    - password={{ pillar['postgres']['password'] }}
+    - encoding: UTF8
+    - locale: C
+    - runas: postgres
