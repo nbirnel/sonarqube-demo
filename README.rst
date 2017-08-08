@@ -95,8 +95,10 @@ There are convenience tradeoffs here.
 The instances have public IPs which are protected only AWS security groups.
 While this is in theory secure, 
 any mistake in the security group could leave the instances exposed. 
-Defense in depth would call for host-based iptables, 
-or for private IPs connected to over a VPN.
+Defense in depth would call for
+host-based iptables, 
+or private IPs connected to over a VPN,
+or both.
 
 Placing Sonarqube's SQL on a high availability RDS in set of private subnets
 would somewhat protect the db in case of a Sonarqube compromise.
@@ -114,7 +116,6 @@ TODO
 * use modules for route53 records
 * add a salt pillar, on the same model as the terraform `secrets.tf`
 * elastic IPs
-* tidy module outputs 
 * add a data source for AMIs, rather than hard coding
   https://wiki.centos.org/Cloud/AWS#head-224024c7b3b083bd574bec6861bcdfd3487a5418
   `aws --region us-east-1 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce`
