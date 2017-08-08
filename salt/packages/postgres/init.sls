@@ -18,7 +18,7 @@ postgres-service:
 
 postgres-data-dir:
   postgres_initdb.present:
-    - name /var/lib/pgsql/data
+    - name: /var/lib/pgsql/data
     - auth: password
     - user: postgres
     - password={{ pillar['postgres']['password'] }}
