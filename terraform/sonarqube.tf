@@ -29,6 +29,14 @@ module "sonarqube" {
   private_key = "${file("keys/deployer")}"
 }
 
+output "sonarqube-01-http" {
+  value = "http ${module.sonarqube.01_public_ip}:9000"
+}
+
+output "sonarqube-02-http" {
+  value = "http ${module.sonarqube.02_public_ip}:9000"
+}
+
 output "sonarqube-01-ssh" {
   value = "ssh -i keys/deployer centos@${module.sonarqube.01_public_ip}"
 }
