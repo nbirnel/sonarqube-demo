@@ -23,8 +23,8 @@ pillar/postgres.sls:
 
 pillar_deploy: pillar
 	$$(terraform output salt-01-pillar)
-	$$(terraform output salt-01-ssh) "cp -a pillar/ /srv/"
+	$$(terraform output salt-01-ssh) "sudo cp -a pillar/ /srv/"
 	$$(terraform output salt-02-pillar)
-	$$(terraform output salt-02-ssh) "cp -a pillar/ /srv/"
+	$$(terraform output salt-02-ssh) "sudo cp -a pillar/ /srv/"
 
 .PHONY: clean pillar pillar_deploy all

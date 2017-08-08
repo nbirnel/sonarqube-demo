@@ -60,6 +60,9 @@ It is deliberately not included in `make all`.
 creating any resources which are not already in place.
 It is deliberately not included in `make all`.
 
+`make pillar_deploy` generates a salt pillar
+and copies it to the salt masters. 
+
 What happens in the first apply
 ===============================
 
