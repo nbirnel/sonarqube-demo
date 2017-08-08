@@ -7,6 +7,6 @@ keys/master:
 	ssh-keygen -f $@
 
 clean:
-	rm -rf .terraform keys/master keys/master.pub
+	shred -u .terraform keys/master keys/master.pub
 
 .PHONY: clean

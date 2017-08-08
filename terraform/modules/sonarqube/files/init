@@ -24,3 +24,5 @@ echo '  - salt-02.develtools.sec' >>/etc/salt/minion.d/master.conf
 
 systemctl enable salt-minion
 systemctl restart salt-minion 
+
+salt-call state.highstate | tee /var/log/highstate
