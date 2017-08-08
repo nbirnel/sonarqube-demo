@@ -34,6 +34,14 @@ output "salt-02-ssh" {
   value = "ssh -i keys/deployer centos@${module.salt.02_public_ip}"
 }
 
+output "salt-01-pillar" {
+  value = "scp -i keys/deployer -r pillar/ centos@${module.salt.01_public_ip}:"
+}
+
+output "salt-02-pillar" {
+  value = "scp -i keys/deployer -r pillar/ centos@${module.salt.02_public_ip}:"
+}
+
 resource "aws_security_group" "salt" {
   name        = "salt"
   description = "salt from our VPC"

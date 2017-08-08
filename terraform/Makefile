@@ -12,15 +12,19 @@ clean:
 pillar: pillar/sonarqube.sls pillar/postgres.sls
 
 pillar/sonarqube.sls:
-	mkdir -p pillar
 	printf 'sonarqube:\n' >$@
 	printf '  postgres_password: ' >>$@
 	pwgen -y 16 1 >>$@
 
 pillar/postgres.sls:
-	mkdir -p pillar
 	printf 'postgres:\n' >$@
 	printf '  password: ' >>$@
 	pwgen -y 16 1 >>$@
 
-.PHONY: clean
+pillar_deploy: pillar
+	$$(terraform output salt-01-pillar)
+	$$(terraform output salt-01-ssh) "cp -a pillar/ /srv/"
+	$$(terraform output salt-02-pillar)
+	$$(terraform output salt-02-ssh) "cp -a pillar/ /srv/"
+
+.PHONY: clean pillar pillar_deploy all

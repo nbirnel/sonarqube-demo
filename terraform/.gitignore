@@ -8,4 +8,5 @@ keys/deployer.pub
 keys/master
 keys/master.pub
 *.plan
-pillar/
+pillar/*
+!pillar/top.sls

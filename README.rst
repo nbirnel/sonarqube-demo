@@ -45,7 +45,8 @@ AWS keys, which CIDR blocks to allow access from, etc.
 It is excluded from version control.
 
 `make all` generates a key for ssh access to all instances,
-and the salt master's key. 
+the salt master's key,
+and a salt pillar directory.
 These are stashed locally.
 It is likely you will run this only once,
 unless you like to repeatedly tear down your infratructure.
