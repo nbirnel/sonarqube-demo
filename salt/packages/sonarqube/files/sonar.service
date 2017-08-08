@@ -5,8 +5,8 @@ After=syslog.target network.target postgresql-9.5.service
 
 [Service]
 Type=forking
-ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
-ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+ExecStart=/opt/sonarqube-5.6.6/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonarqube-5.6.6/bin/linux-x86-64/sonar.sh stop
 User=sonarqube
 
 [Install]
