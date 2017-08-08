@@ -1,2 +1,0 @@
-sonarqube:
-  postgres_password: 
