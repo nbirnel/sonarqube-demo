@@ -1,13 +1,10 @@
-all: keys/deployer keys/master 
+keys: keys/deployer keys/master 
 
 keys/deployer:
 	ssh-keygen -f $@
 
 keys/master:
 	ssh-keygen -f $@
-
-clean:
-	shred -u .terraform keys/master keys/master.pub
 
 pillar: pillar/sonarqube.sls pillar/postgres.sls
 
@@ -27,4 +24,12 @@ pillar_deploy: pillar
 	$$(terraform output salt-02-pillar)
 	$$(terraform output salt-02-ssh) "sudo cp -a pillar/ /srv/"
 
-.PHONY: clean pillar pillar_deploy all
+apply:
+	terraform apply
+
+all: keys apply pillar_deploy
+
+clean:
+	shred -u .terraform keys/master keys/master.pub
+
+.PHONY: clean pillar pillar_deploy all keys 

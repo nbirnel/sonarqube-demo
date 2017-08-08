@@ -29,8 +29,6 @@ To get started::
     $EDITOR variables.tf
     $EDITOR secrets.tf
     make all
-    terraform plan --out=initial.plan
-    terraform apply initial.plan
 
 Details
 =======
@@ -44,24 +42,23 @@ It is excluded from version control.
 AWS keys, which CIDR blocks to allow access from, etc.
 It is excluded from version control.
 
-`make all` generates a key for ssh access to all instances,
-the salt master's key,
-and a salt pillar directory.
-These are stashed locally.
+`make all` runs `make keys apply pillar_deploy`
 It is likely you will run this only once,
 unless you like to repeatedly tear down your infratructure.
 
-`terraform plan` shows what terraform intends to do if it is run.
-Giving it the out flag creates a file guranteeing that this is what will be 
-attempted.
-It is deliberately not included in `make all`.
+`make keys` generates a key for ssh access to all instances,
+the salt master's key,
+and a salt pillar directory.
+These are stashed locally.
 
-`terraform apply` applys the terraform plan,
-creating any resources which are not already in place.
-It is deliberately not included in `make all`.
+`make apply` runs `terraform apply`.
 
 `make pillar_deploy` generates a salt pillar
 and copies it to the salt masters. 
+
+After the first deploy,
+the Makefile is not much use;
+you will want to use terraform and saltstack directly.
 
 What happens in the first apply
 ===============================
@@ -118,9 +115,8 @@ TODO
 * monitoring
 * gitfs (to use github directly for saltstates, rather than cloning).
 * use modules for route53 records
-* add a salt pillar, on the same model as the terraform `secrets.tf`
 * elastic IPs
-* add a data source for AMIs, rather than hard coding
+* add a data source for AMIs, rather than hard coding. See
   https://wiki.centos.org/Cloud/AWS#head-224024c7b3b083bd574bec6861bcdfd3487a5418
   `aws --region us-east-1 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce`
 
