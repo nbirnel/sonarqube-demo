@@ -29,12 +29,12 @@ module "sonarqube" {
   private_key = "${file("keys/deployer")}"
 }
 
-output "sonarqube-01-public-address" {
-  value = "${module.sonarqube.01_public_ip}"
+output "sonarqube-01-ssh" {
+  value = "ssh -i keys/deployer centos@${module.sonarqube.01_public_ip}"
 }
 
-output "sonarqube-02-public-address" {
-  value = "${module.sonarqube.public_ips[1]}"
+output "sonarqube-02-ssh" {
+  value = "ssh -i keys/deployer centos@${module.sonarqube.02_public_ip}"
 }
 
 resource "aws_security_group" "sonarqube" {

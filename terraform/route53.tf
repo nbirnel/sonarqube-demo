@@ -10,16 +10,12 @@ resource "aws_route53_zone" "develtools-sec" {
   }
 }
 
-output "develtools-sec-zone-id" {
-  value = "${aws_route53_zone.develtools-sec.zone_id}"
-}
-
 resource "aws_route53_record" "salt-01" {
   zone_id = "${aws_route53_zone.develtools-sec.zone_id}"
   name    = "salt-01.develtools.sec"
   type    = "A"
   ttl     = "86400"
-  records = ["172.30.0.4"]
+  records = ["${module.salt.01_private_ip}"]
 }
 
 resource "aws_route53_record" "salt-02" {
@@ -27,6 +23,6 @@ resource "aws_route53_record" "salt-02" {
   name    = "salt-02.develtools.sec"
   type    = "A"
   ttl     = "86400"
-  records = ["172.30.128.4"]
+  records = ["${module.salt.02_private_ip}"]
 }
 
