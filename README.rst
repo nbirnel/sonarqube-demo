@@ -21,6 +21,7 @@ You will need:
    - a user with AdministratorAccess
      (or otherwise the ability to create most types of resources in your chosen region)
    - the AWS Access Key and AWS Secret Key for that account
+* pwgen
 
 To get started::
 
@@ -47,8 +48,7 @@ It is likely you will run this only once,
 unless you like to repeatedly tear down your infratructure.
 
 `make keys` generates a key for ssh access to all instances,
-the salt master's key,
-and a salt pillar directory.
+and the salt master's key.
 These are stashed locally.
 
 `make apply` runs `terraform apply`.
@@ -93,7 +93,7 @@ but this is not perfect on SSD drives.
 The ec2 instances' disks are not encrypted. 
 There are convenience tradeoffs here.
 
-The instances have public IPs which are protected only AWS security groups.
+The instances have public IPs which are protected only by AWS security groups.
 While this is in theory secure, 
 any mistake in the security group could leave the instances exposed. 
 Defense in depth would call for
@@ -119,4 +119,7 @@ TODO
 * add a data source for AMIs, rather than hard coding. See
   https://wiki.centos.org/Cloud/AWS#head-224024c7b3b083bd574bec6861bcdfd3487a5418
   `aws --region us-east-1 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce`
+* High Availability - can two instances of Sonarqube share an HA SQL backend?
+* make the remote repo configurable by variables?
+
 
